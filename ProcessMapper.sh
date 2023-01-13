@@ -1,4 +1,7 @@
 #!/bin/bash
+# Consider cut -d " " -fx 
+# count by delim not col
+
 
 a=0
 IFS=$'\n'
@@ -13,6 +16,7 @@ do
 		printf "_____________________________\n"
 		echo
 		printf "User: ${pid[1]}\n"
+		printf "TTY: ${pid[3]}\n"
 		printf "Start Time: $time\n"
 		printf "Protocol: ${irr[0]}\n"
 		printf "Local Address: ${irr[1]}\n"
