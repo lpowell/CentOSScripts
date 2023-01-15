@@ -21,7 +21,7 @@ do
 		printf "Protocol: ${irr[0]}\n"
 		printf "Local Address: ${irr[1]}\n"
 		printf "Remote Address: ${irr[2]}\n"
-		if [ "${irr[3]}" = "LISTEN" ] || [ "${irr[3]}" = "ESTABLISHED" ] || [ "${irr[3]}" = "CLOSE_WAIT" ] ; then
+		if [ "${irr[3]}" = "LISTEN" ] || [ "${irr[3]}" = "ESTABLISHED" ] || [ "${irr[3]}" = "CLOSE_WAIT" ] || [ "${irr[3]}" = "TIME_WAIT" ] ; then
 			printf "State: ${irr[3]}\n"
 			printf "Process: ${irr[4]}\n"
 			printf "Command: ${pid[0]}\n"
