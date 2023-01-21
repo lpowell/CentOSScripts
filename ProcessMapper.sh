@@ -2,7 +2,7 @@
 # Consider cut -d " " -fx 
 # count by delim not col
 
-
+re='^[0-9]+$'
 a=0
 IFS=$'\n'
 for i in $(netstat -tulnpa | awk '{print $1,$4,$5,$6,$7}')
@@ -10,7 +10,11 @@ do
 	if [ $a -gt 1 ] ; then
 		IFS=' '; read -ra arr <<< "$i"; IFS='/'; read -ra arr <<< "${arr[4]}"; id="${arr[0]}"
 		# 
-		IFS=$'\n'; cmdr=($(ps --pid $id -o command))
+		if [[ $id =~ $re ]] ; then
+			IFS=$'\n'; cmdr=($(ps --pid $id -o command))
+		else
+			cmdr="NOT FOUND"
+		fi
 		time=$(ps -eo pid,lstart | awk -v id=$id '$1 == id {print $2,$3,$4,$5,$6}')
 		id=$(ps aux |awk -v id=$id '$2 == id {print $11, $1, $2, $7, $9, $10}')
 		IFS=' '; read -ra pid <<< "$id";
@@ -27,7 +31,7 @@ do
 			printf "State: ${irr[3]}\n"
 			printf "Process: ${irr[4]}\n"
 			# 
-			printf "Command: $cmdr\n"
+			printf "Command: ${cmdr[@:1}\n"
 		else
 			printf "State: NONE\n"
 			printf "Process: ${irr[3]}\n"
