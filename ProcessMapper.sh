@@ -31,7 +31,7 @@ do
 			printf "State: ${irr[3]}\n"
 			printf "Process: ${irr[4]}\n"
 			# 
-			printf "Command: ${cmdr[@:1}\n"
+			printf "Command: ${cmdr[@]:1}\n"
 		else
 			printf "State: NONE\n"
 			printf "Process: ${irr[3]}\n"
