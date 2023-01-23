@@ -10,14 +10,16 @@ printf "Checking repositories...\n"
 ls /etc/yum.repos.d/
 printf "Installing software...\n"
 yum install -y epel-release clamav ntp openssl
-printf "Pulling password...\n"
-curl "password file here" >> passwd.enc
-printf "Decrypting password...\n"
-openssl aes-256-cbc -d -in passwd.enc | base64 -d | passwd root --stdin
-printf "Password Changed\n"
+# printf "Pulling password...\n"
+# curl "password file here" >> passwd.enc
+# printf "Decrypting password...\n"
+# openssl aes-256-cbc -d -in passwd.enc | base64 -d | passwd root --stdin
+# printf "Password Changed\n"
+printf "Changing root password\n"
+passwd root 
 printf "\nPulling scripts...\n"
-curl "enum script here" >> enum.sh
-curl "firewall script here" >> firewall.sh
+curl "https://raw.githubusercontent.com/lpowell/CentOSScripts/main/ServiceMapper.sh" >> enum.sh
+curl "https://raw.githubusercontent.com/lpowell/CentOSScripts/main/ProcessMapper.sh" >> firewall.sh
 printf "Running scripts...\n"
 bash enum.sh 2>&1 | tee enumout.txt
 bash firewall 2>&1 | tee firewallout.txt
