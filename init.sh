@@ -5,7 +5,7 @@ printf "\nPulling out adapter...\n"
 IFS=":";ad=$(ip a | awk '$1 == "2:" {print $2}');read -ra irr <<< $ad; echo "${irr[0]}"
 printf "\nAdapter: ${irr[0]}\n"
 printf "\nOpening network configuration...\n"
-cat /etc/sysconfig/network-scripts/ifcfg-${irr[0]}
+cat /etc/sysconfig/network-scripts/ifcfg-${irr[0]} 2>&1 | tee netconf.txt
 printf "\nChecking repositories...\n"
 ls /etc/yum.repos.d/
 printf "\nInstalling software...\n"
