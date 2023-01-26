@@ -11,11 +11,20 @@ ls /etc/yum.repos.d/
 printf "\nInstalling software...\n"
 yum install -y epel-release clamav ntp openssl
 printf "\nPulling scripts...\n"
-curl "https://raw.githubusercontent.com/lpowell/CentOSScripts/main/ServiceMapper.sh" >> enum.sh
-curl "https://raw.githubusercontent.com/lpowell/CentOSScripts/main/ProcessMapper.sh" >> firewall.sh
+curl "https://raw.githubusercontent.com/lpowell/CentOSScripts/main/ServiceMapper.sh" >> ServiceMapper.sh
+curl "https://raw.githubusercontent.com/lpowell/CentOSScripts/main/ProcessMapper.sh" >> ProcessMapper.sh
+curl "https://raw.githubusercontent.com/lpowell/CentOSScripts/main/splunk_firewall.sh" >> Firewall.sh
+curl "https://raw.githubusercontent.com/lpowell/CentOSScripts/main/ProcessMapper.sh" >> Enum.sh
 printf "\nRunning scripts...\n"
-bash enum.sh 2>&1 | tee enumout.txt
-bash firewall.sh 2>&1 | tee firewallout.txt
+chmod 755 ServiceMapper.sh ProcessMapper.sh Firewall.sh Enum.sh
+bash Enum.sh 2>&1 | tee enumout.txt
+bash Firewall.sh 2>&1 | tee firewallout.txt
+bash ServiceMapper.sh 2>&1 | tee services.txt
+bash ProcessMapper.sh 2>&1 | tee processes.txt
 tar -cf gravbackup.tar /opt/gravwell/www
 tar -cf splunkbackup.tar /opt/splunk 
 printf "\nScript Copmlete\n"
+printf "\nInstalling GUI files...\n"
+yum -y groups install "GNOME Desktop" >/tmp/yum-out 2>&1 &
+echo "exec gnome-session" >> ~/.xinitrc
+printf "Done installing, run startx to start\n"
