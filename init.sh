@@ -14,7 +14,7 @@ printf "\nPulling scripts...\n"
 curl "https://raw.githubusercontent.com/Somekindofclown/fish/Splunk/ServiceMapper.sh" >> ServiceMapper.sh 
 curl "https://raw.githubusercontent.com/Somekindofclown/fish/Splunk/ProcessMapper.sh" >> ProcessMapper.sh 
 curl "https://raw.githubusercontent.com/Somekindofclown/fish/Splunk/splunk_firewall.sh" >> Firewall.sh 
-curl "https://raw.githubusercontent.com/Somekindofclown/detective-pikachu.sh" >> Enum.sh
+curl "https://raw.githubusercontent.com/Somekindofclown/fish/detective-pikachu.sh" >> Enum.sh
 printf "\nRunning scripts...\n"
 chmod 755 ServiceMapper.sh ProcessMapper.sh Firewall.sh Enum.sh > /dev/null 2>&1
 bash Enum.sh 2>&1 | tee enumout.txt 
